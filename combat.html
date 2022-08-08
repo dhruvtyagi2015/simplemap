@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">  <meta http-equiv="x-ua-compatible" content="ie=edge">
+ 
+  <title>Combat Invasion Map</title>
+ 
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <style>
+    #map {
+      height: calc(100vh — 20px) !important;
+    }
+  </style>
+</head>
+<body>
+  <div id="map" style="width: 100%; height: 800px"></div>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.min.js" integrity="sha512-Abr21JO2YqcJ03XGZRPuZSWKBhJpUAR6+2wH5zBeO4wAw4oksr8PRdF+BKIRsxvCdq+Mv4670rZ+dLnIyabbGw==" crossorigin="anonymous"></script>
+  
+    
+  <script>
+
+    var world_street_map = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    });
+ 
+    // Initialize the map
+    var map = L.map('map', {
+      layers: [world_street_map] // Default basemap
+    }).setView([-25.2744, 133.7751], 5);
+
+    //var geojsonLayer = new L.GeoJSON.AJAX("fires_modis.geojson");
+    //geojsonLayer.addTo(map);
+    /*var geojsonLayer = new
+      L.GeoJSON.AJAX("fires_modis.geojson", {
+        pointToLayer: function (feature, latlng) {
+          return L.circleMarker(latlng, {      });
+        }
+      }).addTo(map);
+    */
+    var geojsonLayer = new
+    L.GeoJSON.AJAX("combat.geojson", {
+      onEachFeature: function (feature, layer) {
+        console.log(feature.properties.forceSize);
+      layer.bindPopup('<h1>'+"Force Size " +feature.properties.forceSize+'</h1><p>Last Updated: '+feature.properties.lastUpdate +" hours " +'</p><p> Main force Type: ' + feature.properties.assaultType + '</p><p>Commander: '+ "PIC" +'<p> longitude:' + feature.geometry.coordinates[0] + '</p><p>latitude: '+ feature.geometry.coordinates[1] +'</p>');
+      },
+      pointToLayer: function (feature, latlng) {
+        if(feature.properties.assaultType == "ground"){
+            var tmpColor = "#3d7103"
+        }
+        if(feature.properties.assaultType == "sea"){
+            var tmpColor = "#1502ff"
+        }
+        if(feature.properties.assaultType == "air"){
+            var tmpColor = "#02c2ff"
+        }
+        return L.circleMarker(latlng, {
+          // Stroke properties
+
+          color: tmpColor,
+          opacity: 0.75,
+          weight: 1,          // Fill properties
+          fillColor: tmpColor,
+          fillOpacity: 0.6,
+          radius: feature.properties.forceSize / 1       });
+      }
+}).addTo(map);  
+
+var popup = L.popup()
+		.setLatLng([-25.2744, 133.7751])
+		.setContent('Current invasion forces')
+		.openOn(map);
+    
+function onMapClick(e) {
+		popup
+			.setLatLng(e.latlng)
+			.setContent('You clicked the map at ' + e.latlng.toString())
+			.openOn(map);
+	}
+
+	map.on('click', onMapClick);
+  </script>
+</body>
+</html>
