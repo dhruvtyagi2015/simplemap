@@ -9,5 +9,5 @@ RUN ls /app
 EXPOSE 8000
 WORKDIR /app
 
-
+CMD ["ls /app"]
 CMD ["python3 ./server.py"]
