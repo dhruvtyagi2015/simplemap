@@ -39,8 +39,16 @@
         }
       }).addTo(map);
     */
+
+    async function load_shapefile() {
+      let url = 'https://raw.githubusercontent.com/ausnorris/simplemap/main/fires_modis.geojson';
+      const response = await fetch(url)
+      const shape_obj = await response.json();
+      console.log(shape_obj);
+      return shape_obj;
+    }
     var geojsonLayer = new
-    L.GeoJSON.AJAX("fires_modis.geojson", {
+    L.GeoJSON.AJAX('https://raw.githubusercontent.com/ausnorris/simplemap/main/fires_modis.geojson', {
       onEachFeature: function (feature, layer) {
       layer.bindPopup('<h1>'+"Fire Radiative Power " +feature.properties.frp+'</h1><p>ID: '+feature.properties.id+'</p><p> longitude:' + feature.geometry.coordinates[0] + '</p><p>latitude: '+ feature.geometry.coordinates[1] +'</p>');
       },
