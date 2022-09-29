@@ -22,7 +22,7 @@
     },
     { "type": "Feature",
     "geometry": {"type": "Point", "coordinates": [116.235352, -21.779905]},
-    "properties": {"forceSize": 8, "assaultType": "ground", "lastUpdate": 1, "commanderImage": "/images/camsmith.jpg"}
+    "properties": {"forceSize": 8, "assaultType": "ground", "lastUpdate": 1, "commanderImage": "./images/camsmith.jpg"}
     }
   ]
 }
