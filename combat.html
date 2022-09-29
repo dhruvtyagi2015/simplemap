@@ -43,7 +43,7 @@
     L.GeoJSON.AJAX("https://raw.githubusercontent.com/ausnorris/simplemap/main/combat.geojson", {
       onEachFeature: function (feature, layer) {
         console.log(feature.properties.forceSize);
-      layer.bindPopup('<h1>'+"Force Size " +feature.properties.forceSize+'</h1><p>Last Updated: '+feature.properties.lastUpdate +" hours " +'</p><p> Main force Type: ' + feature.properties.assaultType + '</p><p>Commander: '+ "PIC" +'<p> longitude:' + feature.geometry.coordinates[0] + '</p><p>latitude: '+ feature.geometry.coordinates[1] +'</p>');
+      layer.bindPopup('<h1>'+"Force Size " +feature.properties.forceSize+'</h1><p>Last Updated: '+feature.properties.lastUpdate +" hours " +'</p><p> Main force Type: ' + feature.properties.assaultType + '</p><p>Commander: '+  '<img src="'+feature.properties.commanderImage +'">'  +'<p> longitude:' + feature.geometry.coordinates[0] + '</p><p>latitude: '+ feature.geometry.coordinates[1] +'</p>');
       },
       pointToLayer: function (feature, latlng) {
         if(feature.properties.assaultType == "ground"){
