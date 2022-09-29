@@ -19,6 +19,10 @@
     { "type": "Feature",
     "geometry": {"type": "Point", "coordinates": [146.801667, -19.321667]},
     "properties": {"forceSize": 4, "assaultType": "ground", "lastUpdate": 1}
+    },
+    { "type": "Feature",
+    "geometry": {"type": "Point", "coordinates": [116.235352, -21.779905]},
+    "properties": {"forceSize": 8, "assaultType": "ground", "lastUpdate": 1}
     }
   ]
 }
