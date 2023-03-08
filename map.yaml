@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mapdeployment
+  namespace: hello-keswick
+  labels:
+    app: mapdeployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mapdeployment
+  template:
+    metadata:
+      labels:
+        app: mapdeployment
+    spec:
+      containers:
+      - name: mapdeployment
+        image: auscottnorris/demo-map:fire
+        ports:
+        - containerPort: 8000
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: lb-mapdeployment
+  namespace: hello-keswick
+spec:
+  selector:
+    app: mapdeployment
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8000
+  type: LoadBalancer
