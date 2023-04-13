@@ -6,7 +6,7 @@ class RequestsHandler(http.server.SimpleHTTPRequestHandler):
   """
   def do_GET(self):
     if self.path == '/':
-      self.path = 'map.html'
+      self.path = 'combat.html'
     return http.server.SimpleHTTPRequestHandler.do_GET(self)# Create object of above class
 handler_object = RequestsHandler
 PORT = 8000
