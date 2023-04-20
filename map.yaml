@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: mapdeployment
-        image: auscottnorris/demo-map:combat01
+        image: auscottnorris/demo-map:fire01
         ports:
         - containerPort: 8000
 ---
