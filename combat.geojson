@@ -1,27 +1,27 @@
 {"type": "FeatureCollection",
 "features": [
   { "type": "Feature",
-    "geometry": {"type": "Point", "coordinates": [47.39556, -121.528873]},
+    "geometry": {"type": "Point", "coordinates": [-121.528873, 47.39556]},
     "properties": {"forceSize": 5, "assaultType": "ground", "lastUpdate": 4, "commanderImage": "./images/ianpayne.jpg"}
     },
     { "type": "Feature",
-    "geometry": {"type": "Point", "coordinates": [47.09724, -93.931217]},
+    "geometry": {"type": "Point", "coordinates": [-93.931217, 47.09724]},
     "properties": {"forceSize": 10, "assaultType": "ground", "lastUpdate": 2, "commanderImage": "./images/lukeohair.jpg"}
     },
     { "type": "Feature",
-    "geometry": {"type": "Point", "coordinates": [39.568646, -75.078678]},
+    "geometry": {"type": "Point", "coordinates": [-75.078678, 39.568646]},
     "properties": {"forceSize": 10, "assaultType": "sea", "lastUpdate": 2, "commanderImage": "./images/scott norris.jpg"}
     },
     { "type": "Feature",
-    "geometry": {"type": "Point", "coordinates": [32.0977, -82.593327]},
+    "geometry": {"type": "Point", "coordinates": [-82.593327, 32.0977]},
     "properties": {"forceSize": 7, "assaultType": "air", "lastUpdate": 1, "commanderImage": "./images/timhutch.jpg"}
     },
     { "type": "Feature",
-    "geometry": {"type": "Point", "coordinates": [32.172125, -96.699772]},
+    "geometry": {"type": "Point", "coordinates": [-96.699772, 32.172125]},
     "properties": {"forceSize": 4, "assaultType": "ground", "lastUpdate": 1, "commanderImage": "./images/jessed.jpg"}
     },
     { "type": "Feature",
-    "geometry": {"type": "Point", "coordinates": [35.170441, -114.233952]},
+    "geometry": {"type": "Point", "coordinates": [-114.233952, 35.170441]},
     "properties": {"forceSize": 8, "assaultType": "ground", "lastUpdate": 1, "commanderImage": "./images/camsmith.jpg"}
     }
   ]
