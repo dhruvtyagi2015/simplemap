@@ -7,13 +7,13 @@
       "properties": {
         "id": "5e938df615d5303ef4708be4",
         "acq_date": "2019-08-01",
-        "acq_time": 57,
-        "brightness": 311.6,
-        "daynight": "D",
-        "frp": 23.1,
+        "acq_time": 1311,
+        "brightness": 364.8,
+        "daynight": "N",
+        "frp": 121.9,
         "instrument": "MODIS",
         "satellite": "Terra",
-        "bright_t31": 298.7
+        "bright_t31": 295.1
       }
     },
     {
@@ -22,10 +22,10 @@
       "properties": {
         "id": "5e938df615d5303ef4708c07",
         "acq_date": "2019-08-01",
-        "acq_time": 57,
-        "brightness": 315.3,
+        "acq_time": 225,
+        "brightness": 317.1,
         "daynight": "D",
-        "frp": 37.0,
+        "frp": 80.0,
         "instrument": "MODIS",
         "satellite": "Terra",
         "bright_t31": 300.3
@@ -40,7 +40,7 @@
         "acq_time": 57,
         "brightness": 311.5,
         "daynight": "D",
-        "frp": 27.3,
+        "frp": 150.0,
         "instrument": "MODIS",
         "satellite": "Terra",
         "bright_t31": 298.7
