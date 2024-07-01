@@ -28,7 +28,7 @@
     // Initialize the map
     var map = L.map('map', {
       layers: [world_street_map] // Default basemap
-    }).setView([-25.2744, 133.7751], 5);
+    }).setView([39.13006, -94.482422], 5);
 
     //var geojsonLayer = new L.GeoJSON.AJAX("fires_modis.geojson");
     //geojsonLayer.addTo(map);
@@ -41,14 +41,14 @@
     */
 
     async function load_shapefile() {
-      let url = 'https://raw.githubusercontent.com/ausnorris/simplemap/main/fires_modis.geojson';
+      let url = 'https://raw.githubusercontent.com/dhruvtyagi2015/simplemap/main/fires_modis.geojson';
       const response = await fetch(url)
       const shape_obj = await response.json();
       console.log(shape_obj);
       return shape_obj;
     }
     var geojsonLayer = new
-    L.GeoJSON.AJAX('https://raw.githubusercontent.com/ausnorris/simplemap/main/fires_modis.geojson', {
+    L.GeoJSON.AJAX('https://raw.githubusercontent.com/dhruvtyagi2015/simplemap/main/fires_modis.geojson', {
       onEachFeature: function (feature, layer) {
       layer.bindPopup('<h1>'+"Fire Radiative Power " +feature.properties.frp+'</h1><p>ID: '+feature.properties.id+'</p><p> longitude:' + feature.geometry.coordinates[0] + '</p><p>latitude: '+ feature.geometry.coordinates[1] +'</p>');
       },
@@ -60,12 +60,12 @@
           weight: 1,          // Fill properties
           fillColor: '#cc0000',
           fillOpacity: 0.6,
-          radius: feature.properties.frp / 10       });
+          radius: feature.properties.frp / 2      });
       }
 }).addTo(map);  
 
 var popup = L.popup()
-		.setLatLng([-25.2744, 133.7751])
+		.setLatLng([39.13006, -94.482422])
 		.setContent('Current Fire Activity')
 		.openOn(map);
     

@@ -28,7 +28,7 @@
     // Initialize the map
     var map = L.map('map', {
       layers: [world_street_map] // Default basemap
-    }).setView([-25.2744, 133.7751], 5);
+    }).setView([39.13006, -94.482422], 5);
 
     //var geojsonLayer = new L.GeoJSON.AJAX("fires_modis.geojson");
     //geojsonLayer.addTo(map);
@@ -40,7 +40,7 @@
       }).addTo(map);
     */
     var geojsonLayer = new
-    L.GeoJSON.AJAX("https://raw.githubusercontent.com/ausnorris/simplemap/main/combat.geojson", {
+    L.GeoJSON.AJAX("https://raw.githubusercontent.com/dhruvtyagi2015/simplemap/main/combat.geojson", {
       onEachFeature: function (feature, layer) {
         console.log(feature.properties.forceSize);
       layer.bindPopup('<h1>'+"Force Size " +feature.properties.forceSize+'</h1><p>Last Updated: '+feature.properties.lastUpdate +" hours " +'</p><p> Main force Type: ' + feature.properties.assaultType + '</p><p>Commander: '+  '<img src="'+feature.properties.commanderImage +'" style="width:150px;height:150px;">'  +'<p> longitude:' + feature.geometry.coordinates[0] + '</p><p>latitude: '+ feature.geometry.coordinates[1] +'</p>');
@@ -63,12 +63,12 @@
           weight: 1,          // Fill properties
           fillColor: tmpColor,
           fillOpacity: 0.6,
-          radius: feature.properties.forceSize / 1       });
+          radius: feature.properties.forceSize / 1    });
       }
 }).addTo(map);  
 
 var popup = L.popup()
-		.setLatLng([-25.2744, 133.7751])
+		.setLatLng([39.13006, -94.482422])
 		.setContent('Current invasion forces')
 		.openOn(map);
     
