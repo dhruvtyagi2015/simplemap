@@ -63,13 +63,13 @@
           weight: 1,          // Fill properties
           fillColor: tmpColor,
           fillOpacity: 0.6,
-          radius: feature.properties.forceSize / 1    });
+          radius: feature.properties.forceSize * 3    });
       }
 }).addTo(map);  
 
 var popup = L.popup()
 		.setLatLng([39.13006, -94.482422])
-		.setContent('Current invasion forces')
+		.setContent('Current team location')
 		.openOn(map);
     
 function onMapClick(e) {
