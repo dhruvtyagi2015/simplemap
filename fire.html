@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Combined Map</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <style>
+    #map {
+      height: calc(100vh — 20px) !important;
+    }
+  </style>
+</head>
+<body>
+  <div id="map" style="width: 100%; height: 800px"></div>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.min.js" integrity="sha512-Abr21JO2YqcJ03XGZRPuZSWKBhJpUAR6+2wH5zBeO4wAw4oksr8PRdF+BKIRsxvCdq+Mv4670rZ+dLnIyabbGw==" crossorigin="anonymous"></script>
+  
+  <script>
+
+    var world_street_map = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    });
+
+    // Initialize the map
+    var map = L.map('map', {
+      layers: [world_street_map] // Default basemap
+    }).setView([39.13006, -94.482422], 5);
+
+    var fireGeojsonLayer = new L.GeoJSON.AJAX("https://raw.githubusercontent.com/dhruvtyagi2015/simplemap/main/fires_modis.geojson", {
+      onEachFeature: function (feature, layer) {
+        layer.bindPopup('<h1>'+"Fire Radiative Power " +feature.properties.frp+'</h1><p> longitude:' + feature.geometry.coordinates[0] + '</p><p>latitude: '+ feature.geometry.coordinates[1] +'</p>');
+      },
+      pointToLayer: function (feature, latlng) {
+        return L.circleMarker(latlng, {
+          // Stroke properties
+          color: '#cc0000',
+          opacity: 0.75,
+          weight: 1,          // Fill properties
+          fillColor: '#cc0000',
+          fillOpacity: 0.6,
+          radius: feature.properties.frp * 0.6   });
+      }
+    }).addTo(map);
+
+    var unitGeojsonLayer = new L.GeoJSON.AJAX("https://raw.githubusercontent.com/dhruvtyagi2015/simplemap/main/combat.geojson", {
+  onEachFeature: function (feature, layer) {
+    console.log(feature.properties.forceSize);
+    layer.bindPopup('<h1>'+"Force Size " +feature.properties.forceSize+'</h1><p>Last Updated: '+feature.properties.lastUpdate +" hours " +'</p><p> Main force Type: ' + feature.properties.assaultType + '</p><p>Commander: '+  '<img src="'+feature.properties.commanderImage +'" style="width:150px;height:150px;">'  +'<p> longitude:' + feature.geometry.coordinates[0] + '</p><p>latitude: '+ feature.geometry.coordinates[1] +'</p>');
+    if(feature.properties.assaultType == "ground"){
+        var tmpColor = "#3d7103"
+    }
+    if(feature.properties.assaultType == "sea"){
+        var tmpColor = "#1502ff"
+    }
+    if(feature.properties.assaultType == "air"){
+        var tmpColor = "#02c2ff"
+    }
+    var circle = L.circleMarker(layer.getLatLng(), {
+      radius: feature.properties.forceSize * 5,
+      fillColor: tmpColor,
+      color: tmpColor,
+      weight: 1,
+      opacity: 1,
+      fillOpacity: 0.6
+    });
+    var icon = L.divIcon({
+      className: 'unit-icon',
+      html: '<div style="color: #000; font-size: 20px; font-weight: bold; text-align: center;">' + feature.properties.unitName + '</div>',
+      iconSize: [feature.properties.forceSize * 6, feature.properties.forceSize * 6],
+      iconAnchor: [feature.properties.forceSize + 20, feature.properties.forceSize]
+    });
+    var marker = L.marker(layer.getLatLng(), {icon: icon, clickable: false});
+    map.addLayer(circle);
+    map.addLayer(marker);
+
+    // Find the nearest fire
+    var nearestFire = null;
+    var nearestDistance = Infinity;
+    fireGeojsonLayer.eachLayer(function(layer) {
+      var distance = layer.getLatLng().distanceTo(marker.getLatLng());
+      if (distance < nearestDistance) {
+        nearestDistance = distance;
+        nearestFire = layer;
+      }
+    });
+
+    // Draw an arrow to the nearest fire
+    if (nearestFire) {
+        var arrow = L.polyline([marker.getLatLng(), nearestFire.getLatLng()], {
+  color: '#000',
+  weight: 3,
+  opacity: 0.8,
+  smoothFactor: 1.0
+});
+      map.addLayer(arrow);
+
+      // Add an arrowhead to the end of the polyline
+    //   var arrowhead = L.marker(nearestFire.getLatLng(), {
+    //     icon: L.divIcon({
+    //       className: 'arrowhead-icon',
+    //       html: '<div style="width: 0; height: 0; border-style: solid; border-width: 10px 10px 0 10px; border-color: #000 transparent transparent transparent;"></div>',
+    //       iconSize: [20, 20],
+    //       iconAnchor: [10, 10]
+    //     })
+    //   });
+    //   arrowhead.addTo(map);
+    }
+  }
+}).addTo(map);
+
+// Add a command center/HQ in the center
+var commandCenter = L.marker([39.13006, -104.483422], {
+  icon: L.divIcon({
+    className: 'command-center-icon',
+    html: '<div style="color: #000; font-size: 24px; font-weight: bold; text-align: center;">HQ</div>',
+    iconSize: [50, 50],
+    iconAnchor: [25, 25]
+  })
+});
+commandCenter.addTo(map);
+
+commandCenter.bindPopup('<h1>Command Center</h1><p>Operations Head Quarters.</p>');
+
+// Add a circle around HQ
+var hqCircle = L.circleMarker([39.13006, -104.483422], {
+  radius: 50,
+  color: '#000',
+  opacity: 0.75,
+  weight: 1,
+  fillColor: '#fff',
+  fillOpacity: 0.6
+});
+hqCircle.addTo(map);
+
+    var popup = L.popup()
+        .setLatLng([45.13006, -104.482422])
+        .setContent('Disaster')
+        .openOn(map);
+
+    function onMapClick(e) {
+        popup
+            .setLatLng(e.latlng)
+            .setContent('You clicked the map at ' + e.latlng.toString())
+            .openOn(map);
+    }
+
+    map.on('click', onMapClick);
+  </script>
+</body>
+</html>
