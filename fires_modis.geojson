@@ -3,7 +3,7 @@
   "features": [
     {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [-80.288086, 38.307181] },
+      "geometry": { "type": "Point", "coordinates": [-94.804459, 39.077975] },
       "properties": {
         "id": "5e938df615d5303ef4708be4",
         "acq_date": "2019-08-01",
