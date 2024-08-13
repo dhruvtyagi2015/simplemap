@@ -14,8 +14,7 @@
         "instrument": "MODIS",
         "satellite": "Terra",
         "bright_t31": 295.1
-      },
-      "unitName": "Alpha"
+      }
     },
     {
       "type": "Feature",
@@ -30,8 +29,7 @@
         "instrument": "MODIS",
         "satellite": "Terra",
         "bright_t31": 300.3
-      },
-      "unitName": "Charlie"
+      }
     },
     {
       "type": "Feature",
@@ -46,8 +44,7 @@
         "instrument": "MODIS",
         "satellite": "Terra",
         "bright_t31": 298.7
-      },
-      "unitName": "Eagle"
+      }
     }
   ]
 }
