@@ -79,15 +79,16 @@
           fillColor: tmpColor,
           fillOpacity: 0.6,
           radius: feature.properties.forceSize * 5    });
-        var icon = L.divIcon({
-          className: 'unit-icon',
-          html: '<div style="color: #000; font-size: 20px; font-weight: bold; text-align: center;">' + feature.properties.unitName + '</div>',
-          iconSize: [feature.properties.forceSize * 6, feature.properties.forceSize * 6],
-          iconAnchor: [feature.properties.forceSize + 20, feature.properties.forceSize]
-        });
-        var marker = L.marker(latlng, {icon: icon, clickable: false});
-        map.addLayer(circle);
-        map.addLayer(marker);
+          var icon = L.divIcon({
+  className: 'unit-icon',
+  html: '<div style="color: #000; font-size: 20px; font-weight: bold; text-align: center;">' + feature.properties.unitName + '</div>',
+  iconSize: [feature.properties.forceSize * 6, feature.properties.forceSize * 6],
+  iconAnchor: [feature.properties.forceSize + 20, feature.properties.forceSize]
+});
+var marker = L.marker(latlng, {icon: icon, clickable: true}); // Note the clickable: true
+marker.bindPopup('<h1>'+"Force Size " +feature.properties.forceSize+'</h1><p>Last Updated: '+feature.properties.lastUpdate +" hours " +'</p><p> Main force Type: ' + feature.properties.assaultType + '</p><p>Commander: '+  '<img src="'+feature.properties.commanderImage +'" style="width:150px;height:150px;">'  +'<p> longitude:' + feature.geometry.coordinates[0] + '</p><p>latitude: '+ feature.geometry.coordinates[1] +'</p>');
+map.addLayer(circle);
+map.addLayer(marker);
       }
 }).addTo(map);  
 

@@ -85,15 +85,15 @@
       }
     });
 
-    // Draw an arrow to the nearest fire
-    if (nearestFire) {
-        var arrow = L.polyline([marker.getLatLng(), nearestFire.getLatLng()], {
-  color: '#000',
-  weight: 3,
-  opacity: 0.8,
-  smoothFactor: 1.0
-});
-      map.addLayer(arrow);
+ // Draw an arrow to the nearest fire, but only if the unit is not a sea unit
+if (nearestFire && feature.properties.assaultType !== "sea") {
+  var arrow = L.polyline([marker.getLatLng(), nearestFire.getLatLng()], {
+    color: '#000',
+    weight: 3,
+    opacity: 0.8,
+    smoothFactor: 1.0
+  });
+  map.addLayer(arrow);
 
       // Add an arrowhead to the end of the polyline
     //   var arrowhead = L.marker(nearestFire.getLatLng(), {
